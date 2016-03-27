@@ -1,0 +1,16 @@
+C:\Users\IBM_ADMIN\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\IBM_ADMIN\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.Form1.resources
+C:\Users\IBM_ADMIN\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.Properties.Resources.resources
+C:\Users\IBM_ADMIN\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.csproj.GenerateResource.Cache
+C:\Users\IBM_ADMIN\workspace\C#\DFangFesionSoft\DFangFesionSoft\bin\Debug\DFangFesionSoft.exe
+C:\Users\IBM_ADMIN\workspace\C#\DFangFesionSoft\DFangFesionSoft\bin\Debug\DFangFesionSoft.pdb
+C:\Users\IBM_ADMIN\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.exe
+C:\Users\IBM_ADMIN\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.pdb
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\bin\Debug\DFangFesionSoft.exe
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\bin\Debug\DFangFesionSoft.pdb
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\ResolveAssemblyReference.cache
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.Form1.resources
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.Properties.Resources.resources
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.csproj.GenerateResource.Cache
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.exe
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.pdb

@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFangFesionSoft", "DFangFesionSoft\DFangFesionSoft.csproj", "{530A1977-E4E5-4250-B059-C3B22E094F06}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HaiJia", "C:\Users\Administrator\Desktop\约车神器\2016新版海驾软件\HaiJia\HaiJia.vdproj", "{2B26E74F-936C-4B60-8492-C4E673BF115E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{530A1977-E4E5-4250-B059-C3B22E094F06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{530A1977-E4E5-4250-B059-C3B22E094F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{530A1977-E4E5-4250-B059-C3B22E094F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{530A1977-E4E5-4250-B059-C3B22E094F06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B26E74F-936C-4B60-8492-C4E673BF115E}.Debug|Any CPU.ActiveCfg = Debug
+		{2B26E74F-936C-4B60-8492-C4E673BF115E}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
