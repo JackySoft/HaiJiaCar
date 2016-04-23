@@ -721,7 +721,7 @@ namespace DFangFesionSoft
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if ("".Equals(strIP))
+            if (strIP==null || "".Equals(strIP))
             {
                 GetIPAndDNS();
             }
