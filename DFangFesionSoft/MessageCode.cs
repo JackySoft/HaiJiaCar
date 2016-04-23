@@ -7,17 +7,15 @@ using System.Runtime.Serialization;
 namespace DFangFesionSoft
 {
     [DataContract]
-    public class ErrorInfo
+    class MessageCode
     {
-        [DataMember(Order = 0)]
+        [DataMember]
         public string data { get; set; }
-        [DataMember(Order = 1)]
-        public string code { get; set; }
-        [DataMember(Order = 2)]
+        [DataMember]
+        public int code { get; set; }
+        [DataMember]
         public string message { get; set; }
-
-
-        public ErrorInfo(string data, string code, string message)
+        public MessageCode(string data, int code, string message)
         {
             this.data = data;
             this.code = code;

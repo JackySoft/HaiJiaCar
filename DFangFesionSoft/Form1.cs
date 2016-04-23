@@ -13,6 +13,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Json;
 using System.Threading;
 using System.Web;
+using System.Management;
 
 namespace DFangFesionSoft
 {
@@ -37,6 +38,9 @@ namespace DFangFesionSoft
         bool isSaveUser = false;//是否保存用户信息
         public int errorNum = 0;
         public bool isSuccess = false;
+        public DateTime serverTime;
+        public string strIP, strSubnet, strGateway, strDNS;
+        public 
         Thread t1;
         Thread t2;
         Thread t3;
@@ -48,6 +52,11 @@ namespace DFangFesionSoft
         string __VIEWSTATEGENERATOR = "C2EE9ABB";
         string __EVENTVALIDATION = "%2FwEdAAbh34%2FkrVU3L24YsEhvRmaeY3plgk0YBAefRz3MyBlTcHY2%2BMc6SrnAqio3oCKbxYZxHHBh6T%2F0qvM7nnT1C8JEQiUagUcDcu68gyetszRkSY7bzJhCrs4nlwf1kSE7uBAHS2QKPeQToHahK7qvd06%2FvH7NuUyF8vqWqAHHkh5l3g%3D%3D";
         private void btnAboutCar_Click(object sender, EventArgs e)
+        {
+            loginMain();
+        }
+
+        public void loginMain() 
         {
             string txtUserName = this.txtUserName.Text.ToString();
             string txtPassword = this.txtUserPwd.Text.ToString();
@@ -70,44 +79,46 @@ namespace DFangFesionSoft
             }
             string loginPost = "__VIEWSTATE=" + __VIEWSTATE + "&__VIEWSTATEGENERATOR=" + __VIEWSTATEGENERATOR + "&__EVENTVALIDATION=" + __EVENTVALIDATION + "&txtUserName=" + txtUserName + "&txtPassword=" + txtPassword + "&txtIMGCode=" + txtIMGCode + "&BtnLogin=登  录";//登陆提交
             string html = "";
-            string error="";
+            string error = "";
             try
             {
                 html = HttpRequestHelper.HttpPost(url, loginPost);
+                html = HttpRequestHelper.replaceComma(html);
+                int errorStart = html.IndexOf("<script>alert('");
+                int errorEnd = html.IndexOf("');</script>");
+                if (errorStart > -1)
+                {
+                    error = html.Substring(errorStart + 15, errorEnd - errorStart - 15);
+                    if (!error.Equals(""))
+                    {
+                        printLog(error);
+                        MessageBox.Show(error);
+                    }
 
-                if (html.IndexOf("验证码错误") > -1)
-                {
-                    error = "验证码无效,请重新获取验证码！";
                 }
-                else if (html.IndexOf("账号或密码错误") > -1)
+                else
                 {
-                    error = "账号或密码不对，请重新输入！";
+                    if (error.Equals("") && html.IndexOf("ych2.aspx") > -1)
+                    {
+                        //启用按钮
+                        this.button1.Enabled = true;
+                        this.btnSubCnbh.Enabled = true;
+                        printLog("登陆成功，请在7点35分左右开始约车！");
+                        this.saveUserInfo(txtUserName, txtPassword);
+                        //登陆成功直接获取车辆信息
+                        this.getCarsList();
+                    }
+                    else
+                    {
+                        printLog("登陆异常，请重新登陆！");
+                    }
                 }
-                if(!error.Equals(""))
-                {
-                    printLog(error);
-                    MessageBox.Show(error);
-                }
-                if (error.Equals("") && html.IndexOf("ych2.aspx") > -1)
-                {
-                    //启用按钮
-                    this.button1.Enabled = true;
-                    this.btnSubCnbh.Enabled = true;
-                    printLog("登陆成功，请在7点35分左右开始约车！");
-                    this.saveUserInfo(txtUserName, txtPassword);
-                    //登陆成功直接获取车辆信息
-                    this.getCarsList();
-                }
-                else 
-                {
-                    printLog("登陆异常，请重新登陆！");
-                }
+
             }
             catch (Exception)
             {
-                printLog("登陆失败，请稍后重试！",Color.Red);
+                printLog("网络异常，请稍后重试！", Color.Red);
             }
-
         }
 
         //获取验证码
@@ -261,10 +272,11 @@ namespace DFangFesionSoft
             isSuccess = false;
 
             //查询科目二
-            if (yykm.Equals("2"))
+            if (false)
             {
                 string getCarUrl = "http://haijia.bjxueche.net/Han/ServiceBooking.asmx/GetCars";
-                string param = "yyrq=" + yyrq + "&yysd=" + yysd + "&xllxID=" + yykm + "&pageSize=35&pageNum=1";
+                string param = "{\"yyrq\":\"" + yyrq + "\",\"yysd\":\"" + yysd + "\",\"xllxID\":\"" + yykm + "\",\"pageSize\":35,\"pageNum\":1}";
+                //string param = "yyrq=" + yyrq + "&yysd=" + yysd + "&xllxID=" + yykm + "&pageSize=35&pageNum=1";
                 string html = "";
                 try
                 {
@@ -332,7 +344,8 @@ namespace DFangFesionSoft
                     html = HttpRequestHelper.replaceComma(html);
                     if (html.IndexOf("LoginOut") > -1)
                     {
-                        printLog("系统已自动断开连接，请重新登陆！");
+                        printLog("系统已自动断开连接，软件正尝试登陆...！");
+                        loginMain();
                     }
                     else 
                     {
@@ -611,9 +624,22 @@ namespace DFangFesionSoft
         {
             try
             {
+                cboYysd.SelectedIndex = 0;
+                cboKemu.SelectedIndex = 0;
                 DateTime dt = DateTime.Now;
                 dt = dt.AddDays(7);
-                this.dtYyrq.Value = dt;
+                this.dtYyrq.Value = dt;//获取服务器时间
+                string dateHtml = HttpRequestHelper.HttpGet("http://haijia.xuechebu.com:8008/API/GetServiceDate", "", true);
+
+                dateHtml = HttpRequestHelper.replaceComma(dateHtml);
+                MessageCode timeInfo = FromJsonTo<MessageCode>(dateHtml);
+                if (timeInfo.code == 0)
+                {
+                    serverTime = StampToDateTime(timeInfo.data);
+                    lblServerTime.Text = serverTime.ToLongTimeString().ToString();
+                    this.timerServer.Enabled = true;
+                }
+                printLog("如果您早上约车，请在7点35分准时登陆，右上角显示的是驾校服务器时间,");
                 Control.CheckForIllegalCrossThreadCalls = false;
                 FileStream aFile = new FileStream("c:/haijia.txt", FileMode.OpenOrCreate);
                 StreamReader sr = new StreamReader(aFile);
@@ -644,6 +670,16 @@ namespace DFangFesionSoft
             {
                 isSaveUser = false;
             }
+        }
+
+        // 时间戳转为C#格式时间
+        private DateTime StampToDateTime(string timeStamp)
+        {
+            DateTime dateTimeStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            long lTime = long.Parse(timeStamp + "0000000");
+            TimeSpan toNow = new TimeSpan(lTime);
+
+            return dateTimeStart.Add(toNow);
         }
 
         //将登录信息保存在本地，以便下次使用
@@ -677,5 +713,106 @@ namespace DFangFesionSoft
             }
         }
 
+        private void timerServer_Tick(object sender, EventArgs e)
+        {
+            serverTime = serverTime.AddSeconds(1);
+            lblServerTime.Text = serverTime.ToLongTimeString().ToString();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if ("".Equals(strIP))
+            {
+                GetIPAndDNS();
+            }
+            SetNetworkAdapter();
+        }
+
+        public void GetIPAndDNS()
+        {
+            strIP = "0.0.0.0";
+            strSubnet = "0.0.0.0";
+            strGateway = "0.0.0.0";
+            strDNS = "0.0.0.0";
+            try
+            {
+                ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+                ManagementObjectCollection nics = mc.GetInstances();
+                foreach (ManagementObject nic in nics)
+                {
+                    try
+                    {
+                        if (Convert.ToBoolean(nic["IPEnabled"]) == true)
+                        {
+
+                            if ((nic["IPAddress"] as String[]).Length > 0 && strIP == "0.0.0.0")
+                            {
+                                strIP = (nic["IPAddress"] as String[])[0];
+                            }
+                            if ((nic["IPSubnet"] as String[]).Length > 0 && strSubnet == "0.0.0.0")
+                            {
+                                strSubnet = (nic["IPSubnet"] as String[])[0];
+                            }
+                            if ((nic["DefaultIPGateway"] as String[]).Length > 0 && strGateway == "0.0.0.0")
+                            {
+                                strGateway = (nic["DefaultIPGateway"] as String[])[0];
+                            }
+                            if ((nic["DNSServerSearchOrder"] as String[]).Length > 0 && strDNS == "0.0.0.0")
+                            {
+                                strDNS = (nic["DNSServerSearchOrder"] as String[])[0];
+                            }
+
+                            printLog("本机IP:" + strIP, Color.Orange);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        //修改电脑ip
+        private void SetNetworkAdapter()
+        {
+            ManagementBaseObject inPar = null;
+            ManagementBaseObject outPar = null;
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+            string newIp = "";
+            ManagementObjectCollection moc = mc.GetInstances();
+
+            Random ran = new Random();
+            int RandKey = ran.Next(1, 255);
+            
+            newIp = strIP.Split('.')[0] + "." + strIP.Split('.')[1] + "." + strIP.Split('.')[2] + "." + RandKey.ToString();
+            
+            foreach (ManagementObject mo in moc)
+            {
+                if (!(bool)mo["IPEnabled"])
+                    continue;
+
+                //设置ip地址和子网掩码
+                inPar = mo.GetMethodParameters("EnableStatic");
+
+                inPar["IPAddress"] = new string[] { newIp };// 1.备用 2.IP
+                inPar["SubnetMask"] = new string[] { strSubnet };
+                outPar = mo.InvokeMethod("EnableStatic", inPar, null);
+
+                //设置网关地址
+                inPar = mo.GetMethodParameters("SetGateways");
+                inPar["DefaultIPGateway"] = new string[] { strGateway };// 1.网关;2.备用网关
+                outPar = mo.InvokeMethod("SetGateways", inPar, null);
+
+                //设置DNS
+                inPar = mo.GetMethodParameters("SetDNSServerSearchOrder");
+                inPar["DNSServerSearchOrder"] = new string[] { strDNS };// 1.DNS 2.备用DNS
+                outPar = mo.InvokeMethod("SetDNSServerSearchOrder", inPar, null);
+                break;
+            }
+            printLog("修改后的IP为：" + newIp + ",如果此IP与其他人冲突，则从新获取即可。");
+        }
     }
 }

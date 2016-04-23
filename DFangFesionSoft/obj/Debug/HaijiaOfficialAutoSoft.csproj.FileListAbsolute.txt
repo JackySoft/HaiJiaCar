@@ -1,0 +1,16 @@
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\bin\Debug\DFangFesionSoft.exe
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\bin\Debug\DFangFesionSoft.pdb
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\ResolveAssemblyReference.cache
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.Form1.resources
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.Properties.Resources.resources
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\HaijiaOfficialAutoSoft.csproj.GenerateResource.Cache
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.exe
+E:\workspace\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.pdb
+F:\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.exe
+F:\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.pdb
+F:\C#\DFangFesionSoft\DFangFesionSoft\bin\Debug\DFangFesionSoft.exe
+F:\C#\DFangFesionSoft\DFangFesionSoft\bin\Debug\DFangFesionSoft.pdb
+F:\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\ResolveAssemblyReference.cache
+F:\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.Form1.resources
+F:\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\DFangFesionSoft.Properties.Resources.resources
+F:\C#\DFangFesionSoft\DFangFesionSoft\obj\Debug\HaijiaOfficialAutoSoft.csproj.GenerateResource.Cache

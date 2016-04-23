@@ -67,6 +67,10 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.threadIsStop = new System.Windows.Forms.Timer(this.components);
+            this.lblServerTime = new System.Windows.Forms.Label();
+            this.lblCurrentDate = new System.Windows.Forms.Label();
+            this.timerServer = new System.Windows.Forms.Timer(this.components);
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -78,7 +82,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(318, 3);
+            this.label1.Location = new System.Drawing.Point(260, 3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(263, 29);
             this.label1.TabIndex = 20;
@@ -114,7 +118,7 @@
             // 
             this.button1.Enabled = false;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(69, 142);
+            this.button1.Location = new System.Drawing.Point(15, 145);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 47);
             this.button1.TabIndex = 9;
@@ -182,6 +186,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.rdoNo);
             this.groupBox1.Controls.Add(this.rdoYes);
             this.groupBox1.Controls.Add(this.label10);
@@ -220,7 +225,7 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(227, 21);
             this.txtUserName.TabIndex = 2;
-            this.txtUserName.Text = "123456789012345678";
+            this.txtUserName.Text = "海驾官网登陆帐号";
             // 
             // txtUserPwd
             // 
@@ -228,7 +233,7 @@
             this.txtUserPwd.Name = "txtUserPwd";
             this.txtUserPwd.Size = new System.Drawing.Size(227, 21);
             this.txtUserPwd.TabIndex = 4;
-            this.txtUserPwd.Text = "19820929";
+            this.txtUserPwd.Text = "海驾官网登陆密码";
             // 
             // txtImageCode
             // 
@@ -314,18 +319,18 @@
             // 
             // cboYysd
             // 
-            this.cboYysd.DisplayMember = "上午(07:45-12:30)";
+            this.cboYysd.DisplayMember = "上午";
+            this.cboYysd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboYysd.FormattingEnabled = true;
             this.cboYysd.Items.AddRange(new object[] {
-            "上午(07:45 -- 12:30)",
-            "下午(13:30 -- 18:10)",
-            "晚上(18:30 -- 20:00)"});
+            "上午",
+            "下午",
+            "晚上"});
             this.cboYysd.Location = new System.Drawing.Point(109, 126);
             this.cboYysd.Name = "cboYysd";
             this.cboYysd.Size = new System.Drawing.Size(121, 20);
             this.cboYysd.TabIndex = 4;
-            this.cboYysd.Text = "上午(07:45-12:30)";
-            this.cboYysd.ValueMember = "上午(07:45-12:30)";
+            this.cboYysd.ValueMember = "上午";
             // 
             // label7
             // 
@@ -402,6 +407,7 @@
             // cboKemu
             // 
             this.cboKemu.DisplayMember = "科二";
+            this.cboKemu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboKemu.FormattingEnabled = true;
             this.cboKemu.Items.AddRange(new object[] {
             "科二",
@@ -410,7 +416,6 @@
             this.cboKemu.Name = "cboKemu";
             this.cboKemu.Size = new System.Drawing.Size(121, 20);
             this.cboKemu.TabIndex = 29;
-            this.cboKemu.Text = "科二";
             this.cboKemu.ValueMember = "812";
             // 
             // label17
@@ -462,12 +467,50 @@
             this.threadIsStop.Interval = 1000;
             this.threadIsStop.Tick += new System.EventHandler(this.threadIsStop_Tick);
             // 
+            // lblServerTime
+            // 
+            this.lblServerTime.AutoSize = true;
+            this.lblServerTime.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblServerTime.Location = new System.Drawing.Point(706, 12);
+            this.lblServerTime.Name = "lblServerTime";
+            this.lblServerTime.Size = new System.Drawing.Size(26, 16);
+            this.lblServerTime.TabIndex = 26;
+            this.lblServerTime.Text = "--";
+            // 
+            // lblCurrentDate
+            // 
+            this.lblCurrentDate.AutoSize = true;
+            this.lblCurrentDate.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblCurrentDate.Location = new System.Drawing.Point(556, 12);
+            this.lblCurrentDate.Name = "lblCurrentDate";
+            this.lblCurrentDate.Size = new System.Drawing.Size(144, 16);
+            this.lblCurrentDate.TabIndex = 25;
+            this.lblCurrentDate.Text = "服务器当前时间：";
+            // 
+            // timerServer
+            // 
+            this.timerServer.Interval = 1000;
+            this.timerServer.Tick += new System.EventHandler(this.timerServer_Tick);
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button2.Location = new System.Drawing.Point(124, 145);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(94, 47);
+            this.button2.TabIndex = 26;
+            this.button2.Text = "动态修改IP";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnAboutCar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(833, 498);
+            this.Controls.Add(this.lblServerTime);
+            this.Controls.Add(this.lblCurrentDate);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label1);
@@ -531,6 +574,10 @@
         private System.Windows.Forms.ComboBox cboKemu;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblServerTime;
+        private System.Windows.Forms.Label lblCurrentDate;
+        private System.Windows.Forms.Timer timerServer;
+        private System.Windows.Forms.Button button2;
     }
 }
 

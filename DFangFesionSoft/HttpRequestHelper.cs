@@ -102,11 +102,11 @@ namespace DFangFesionSoft
         //替换\r\n和空格
         public static string getXnsd(string name)
         {
-            if (name.Equals("上午(07:45-12:30)"))
+            if (name.Equals("上午"))
             {
                 return "711";
             }
-            else if (name.Equals("下午(13:30-18:10)"))
+            else if (name.Equals("下午"))
             {
                 return "1216";
             }
